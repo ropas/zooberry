@@ -1,0 +1,19 @@
+S frontend
+S analysis/semantics
+S analysis/pre
+S analysis/sparse
+S lib
+S extract
+S debug
+S main
+
+B _build/frontend
+B _build/analysis/semantics
+B _build/analysis/pre
+B _build/analysis/sparse
+B _build/lib
+B _build/extract
+B _build/debug
+B _build/main
+
+PKG cil ocamlgraph batteries

@@ -1,0 +1,83 @@
+#!/bin/bash
+#
+# Copyright (c) 2017-present,
+# Programming Research Laboratory (ROPAS), Seoul National University, Korea
+# This software is distributed under the term of the BSD-3 clause license.
+set -e -u
+
+INCLUDE_DIRS=frontend,analysis/semantics,analysis/pre,analysis/pfs,analysis/sparse,lib,extract,debug,main
+INPUT_DIR_SET=false
+TARGET=main/Main.native
+STATIC_BINDING=
+DOC_FLAGS="-docflags -hide-warnings,-charset,utf-8,-keep-code"
+
+function clean {
+    ocamlbuild -clean
+    exit 0
+}
+
+function doc {
+    TARGET=zooberry.docdir/index.html
+}
+
+function byte {
+    TARGET=main/Main.byte
+}
+
+function static {
+    STATIC_BINDING="-lflags -ccopt,-static"
+}
+
+function profile {
+    TARGET=main/Main.p.native
+}
+
+function help {
+cat << EOF
+Usage: ./build [Options] UserInputDir
+
+Options
+  clean        Clean compiled files.
+  byte         Byte-code compile (default is native-code).
+  static       Static binding of libraries.
+  doc          (Experimental) Generate html documents.
+  profile      (Experimental) Turn on profiling mode that uses gprof.
+  help         Print this.
+
+UserInputDir
+  ItvInput     Interval analysis
+  TntInput     Taint analysis
+  TntRbtInput  Taint analysis generated from Rabbit
+EOF
+exit 0
+}
+
+function set_input {
+    if [ ! -d "$1" ]; then
+        echo "ERROR: the $1 directory does not exists."
+        exit 1
+    fi
+    INPUT_DIR_SET=true
+    INCLUDE_DIRS="$INCLUDE_DIRS",${1%/}
+}
+
+while [ $# -ne 0 ] && [ ! -z $1 ]; do
+    case $1 in
+        clean|byte|doc|static|profile) "$1" ;;
+        help|-help|--help|-h|--h) help ;;
+        *) set_input $1 ;;
+    esac
+    shift
+done
+
+if [ "$INPUT_DIR_SET" = false ]; then
+    echo 'ERROR: insert input, e.g., "./build TntInput"'
+    exit 1
+fi
+
+time ocamlbuild $TARGET \
+    -use-ocamlfind \
+    -Is $INCLUDE_DIRS \
+    -cflag -annot \
+    $STATIC_BINDING \
+    $DOC_FLAGS

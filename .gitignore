@@ -1,0 +1,11 @@
+_build
+*.glob
+*.v.d
+*.vo
+*.aux
+*.dvi
+*.log
+*.pdf
+*.bbl
+*.blg
+*.out
