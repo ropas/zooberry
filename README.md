@@ -22,7 +22,7 @@ How to make (example: the interval analyzer)
 
 1.  Extract an analysis specification written in Coq to OCaml.
 
-        $ cd rabbit
+        $ cd spec
         $ make ItvInput_ext
 
     It extract OCaml files to the `analyzer/extract` directory.
