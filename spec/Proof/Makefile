@@ -1,7 +1,7 @@
 # Copyright (c) 2017-present,
 # Programming Research Laboratory (ROPAS), Seoul National University, Korea
 # This software is distributed under the term of the BSD-3 clause license.
-TEMPLATE := MemGCommon.v VeqCommon.v
+TEMPLATE := MemGCommon.v VeqCommon.v MemPfCommon.v
 BASIC_SRC := $(wildcard ../Basic/*.v)
 VS := $(filter-out $(TEMPLATE), $(wildcard *.v))
 DIR := $(notdir $(shell pwd))
