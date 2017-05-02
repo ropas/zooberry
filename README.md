@@ -14,9 +14,6 @@ Requirements
     *   cil 1.7.3
 *   Coq 8.5pl2
 
-*Hint*: use [opam](https://opam.ocaml.org/) with `apt-get install
-opam` in Ubuntu.
-
 How to make (example: the interval analyzer)
 --------------------------------------------
 
