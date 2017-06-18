@@ -30,33 +30,30 @@ let validate (g, access_map, io, oo, d_io, d_oo) =
   else prerr_endline "Validation failed."
 
 let main () =
-
-let t0 = Sys.time () in
-Printexc.record_backtrace true;
-try
-
-Format.set_formatter_out_channel stderr;
-
-let usageMsg = "Usage: Main.native [options] source-files" in
-Arg.parse Options.opts args usageMsg;
-files := List.rev !files;
-
-let g = Step.big "Reading source program" parse () in
-let (pre, g) = Step.big "Pre analysis" Pre.analyze g in
-let (dug, memFI, order, io, oo, d_io, d_oo) =
-  Step.big "Main analysis" Sparse.analyze (pre, g) in
-let access_map = pre.Pre.access_reach in
-Step.big_side !Options.opt_validate_bool "Validation"
-  validate (g, access_map, io, oo, d_io, d_oo);
-Step.big_side true "Alarm report" Report.run (g, d_io);
-Step.big_side !Options.opt_debug "Debug mode"
-  Debug.debug (g, memFI, access_map, dug, io, oo, d_io, d_oo);
-
-prerr_endline hr;
-Printf.eprintf "Finished: %.1f sec\n" (Sys.time() -. t0)
-
-with exc ->
-  prerr_endline (Printexc.to_string exc);
-  prerr_endline (Printexc.get_backtrace())
+  let t0 = Sys.time () in
+  Printexc.record_backtrace true;
+  try
+    Format.set_formatter_out_channel stderr;
+    let usage_msg = "Usage: Main.native [options] source-files" in
+    Arg.parse Options.opts args usage_msg;
+    files := List.rev !files;
+    if List.length !files = 0 then
+      (Arg.usage Options.opts usage_msg;
+       exit 1);
+    let g = Step.big "Reading source program" parse () in
+    let (pre, g) = Step.big "Pre analysis" Pre.analyze g in
+    let (dug, memFI, order, io, oo, d_io, d_oo) =
+      Step.big "Main analysis" Sparse.analyze (pre, g) in
+    let access_map = pre.Pre.access_reach in
+    Step.big_side !Options.opt_validate_bool "Validation"
+      validate (g, access_map, io, oo, d_io, d_oo);
+    Step.big_side true "Alarm report" Report.run (g, d_io);
+    Step.big_side !Options.opt_debug "Debug mode"
+      Debug.debug (g, memFI, access_map, dug, io, oo, d_io, d_oo);
+    prerr_endline hr;
+    Printf.eprintf "Finished: %.1f sec\n" (Sys.time() -. t0)
+  with exc ->
+    prerr_endline (Printexc.to_string exc);
+    prerr_endline (Printexc.get_backtrace())
 
 let _ = main ()
