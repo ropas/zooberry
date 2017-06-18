@@ -17,9 +17,9 @@ let opt_validate () = opt_densify := true
 let opt_query = ref false
 
 let opts =
-  [ ("-debug", (Arg.Set opt_debug), "turns debug mode on.")
-  ; ("-narrow", (Arg.Set opt_narrow), "revise analysis results by narrowing.")
-  ; ("-nobar", (Arg.Set opt_nobar), "turns verbose progress bars off")
-  ; ("-validate", (Arg.Unit opt_validate), "validates analysis results.")
-  ; ("-query", (Arg.Set opt_query), "prints all queries.")
+  [ ("-debug", (Arg.Set opt_debug), "Turn debug mode on")
+  ; ("-narrow", (Arg.Set opt_narrow), "Revise analysis results by narrowing")
+  ; ("-nobar", (Arg.Set opt_nobar), "Turn verbose progress bars off")
+  ; ("-validate", (Arg.Unit opt_validate), "Validate analysis results")
+  ; ("-query", (Arg.Set opt_query), "Print all queries")
   ]
