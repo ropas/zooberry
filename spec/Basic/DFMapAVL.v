@@ -14,6 +14,7 @@ Set Implicit Arguments.
 Require Import OrderedType FMapAVL.
 Require FMapFacts.
 Require Import VocabA.
+Require Import FunInd.
 
 Local Open Scope bool.
 

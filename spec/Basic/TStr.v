@@ -11,6 +11,7 @@ Set Implicit Arguments.
 will be extracted to string type of OCaml. *)
 
 Require Import OrderedType OrderedTypeEx.
+Require Extraction.
 
 Axiom string_t : Type.
 Extract Constant string_t => "string".

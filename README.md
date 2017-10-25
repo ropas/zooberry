@@ -7,12 +7,12 @@ verified validators.
 Requirements
 ------------
 
-*   OCaml 4.03.0
-    *   ocamlfind 1.6.2
-    *   ocamlbuild 0.9.2
-    *   ocamlgraph 1.8.7
+*   OCaml 4.04.2
+    *   ocamlfind 1.7.3
+    *   ocamlbuild 0.11.0
+    *   ocamlgraph 1.8.8
     *   cil 1.7.3
-*   Coq 8.5pl2
+*   Coq 8.7.0
 
 How to make (example: the interval analyzer)
 --------------------------------------------

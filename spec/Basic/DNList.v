@@ -135,20 +135,21 @@ Fixpoint eq_dec' s (x y : t) : {eq' s x y} + {~ eq' s x y}.
 refine
   match s with
     | O => left (eq_zero x y)
-    | S s' =>
-      match x, y with
-        | nil, nil => left _
-        | cons hd1 tl1, cons hd2 tl2 =>
-          match A.eq_dec hd1 hd2 with
-            | left _ =>
-              match eq_dec' s' tl1 tl2 with
-                | left _ => left _
-                | right _ => right _
-              end
-            | right _ => right _
-          end
-        | _, _ => right _
+    | S s' => _
+  end;
+refine
+  match x, y with
+  | nil, nil => left _
+  | cons hd1 tl1, cons hd2 tl2 =>
+    match A.eq_dec hd1 hd2 with
+    | left _ =>
+      match eq_dec' s' tl1 tl2 with
+      | left _ => left _
+      | right _ => right _
       end
+    | right _ => right _
+    end
+  | _, _ => right _
   end; try (by inversion 1).
 - apply eq_nil.
 - apply eq_cons; auto.
