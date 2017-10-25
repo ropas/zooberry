@@ -8,7 +8,7 @@ VS := CorFin.v CorInsenLocal.v CorSen.v CorSenLocal.v DenInsenLocal.v \
       SemCommon.v SemCon.v SemInsenLocal.v SemSen.v SemSenLocal.v \
       UserProofType.v
 
-.PHONY:	all clean
+.PHONY: all clean
 
 all: Makefile.coq $(VS)
 	$(MAKE) -f Makefile.coq

@@ -4,7 +4,7 @@
 BASIC_OBJ := $(wildcard ../Basic/*.vo)
 VS := $(wildcard *.v)
 
-.PHONY:	all clean
+.PHONY: all clean
 
 all: Makefile.coq $(VS)
 	$(MAKE) -f Makefile.coq

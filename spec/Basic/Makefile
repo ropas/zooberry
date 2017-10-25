@@ -7,7 +7,7 @@ VS := Access.v DBin.v DFMapAVL.v DFSetAVL.v DItv.v DLat.v DList.v \
       InterNode.v IntraCfg.v IntraNode.v Monad.v Pos.v Syn.v TStr.v \
       UserInputType.v VocabA.v hpattern.v vgtac.v
 
-.PHONY:	all clean
+.PHONY: all clean
 
 all: Makefile.coq $(VS)
 	$(MAKE) -f Makefile.coq
