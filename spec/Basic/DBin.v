@@ -53,7 +53,7 @@ refine (match x, y with
           | x, Top => left (le_top x)
           | _, _ => right _
         end); inversion 1.
-Qed.
+Defined.
 
 Definition eq_dec (x y : t) : {eq x y} + {~ eq x y}.
 refine (match x, y with
@@ -61,7 +61,7 @@ refine (match x, y with
           | Top, Top => left eq_top
           | _, _ => right _
         end); inversion 1.
-Qed.
+Defined.
 
 Definition top : t := Top.
 

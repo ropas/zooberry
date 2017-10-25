@@ -132,7 +132,7 @@ apply for_all_2 with (k := k) (v := find k x) in Hb; try done.
 - apply le_than_mor; by apply eq_refl.
 - unfold le_than; i; destruct (B.le_dec B.bot (find k0 y)); try done.
   elim f; by apply B.bot_prop.
-Qed.
+Defined.
 
 Lemma simple_le_dec_prop :
   forall x y (Hdec : for_all print2 (le_than y) x = false),

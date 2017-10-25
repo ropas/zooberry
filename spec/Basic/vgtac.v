@@ -24,6 +24,8 @@ Hint Unfold not iff id.
 Notation " [ x ] " := (cons x nil) : list_scope.
 Notation " [ x ; .. ; y ] " := (cons x .. (cons y nil) ..) : list_scope.
 
+Global Set Warnings "-notation-overridden".
+
 Notation "~ x" := (forall (FH: x), False) : type_scope.
 
 (* Function composition *)
@@ -141,7 +143,7 @@ Ltac intross := simpl in *; try done; intros.
 Tactic Notation "case_eq" constr(x) := case_eq (x).
 
 Tactic Notation "case_eq" constr(x) "as" simple_intropattern(H) :=
-  destruct x as [] _eqn: H; try done.
+  destruct x as [] eqn: H; try done.
 
 
 (* ************************************************************************** *)

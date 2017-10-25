@@ -34,7 +34,7 @@ function profile {
 
 function help {
 cat << EOF
-Usage: ./build [Options] UserInputDir
+Usage: ./build [Options] SpecName
 
 Options
   clean        Clean compiled files.
@@ -44,21 +44,21 @@ Options
   profile      (Experimental) Turn on profiling mode that uses gprof.
   help         Print this.
 
-UserInputDir
-  ItvInput     Interval analysis
-  TntInput     Taint analysis
-  TntRbtInput  Taint analysis generated from Rabbit
+SpecName
+  Itv          Interval analysis
+  Tnt          Taint analysis
 EOF
 exit 0
 }
 
 function set_input {
-    if [ ! -d "$1" ]; then
-        echo "ERROR: the $1 directory does not exists."
+    DIR=${1}Input
+    if [ ! -d $DIR ]; then
+        echo "ERROR: the $DIR directory does not exists."
         exit 1
     fi
     INPUT_DIR_SET=true
-    INCLUDE_DIRS="$INCLUDE_DIRS",${1%/}
+    INCLUDE_DIRS="$INCLUDE_DIRS",${DIR%/}
 }
 
 while [ $# -ne 0 ] && [ ! -z $1 ]; do
@@ -71,7 +71,7 @@ while [ $# -ne 0 ] && [ ! -z $1 ]; do
 done
 
 if [ "$INPUT_DIR_SET" = false ]; then
-    echo 'ERROR: insert input, e.g., "./build TntInput"'
+    echo 'ERROR: insert input, e.g., "./build Itv"'
     exit 1
 fi
 

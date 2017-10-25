@@ -18,4 +18,8 @@ Extraction Blacklist String List Nat.
 Require Import ExtrOcamlZInt.
 Require Import ExtrOcamlString.
 
+Global Set Warnings "-extraction-opaque-accessed".
+Global Set Warnings "-extraction-reserved-identifier".
+Global Set Warnings "-extraction-logical-axiom".
+
 Recursive Extraction Library Vali.

@@ -10,6 +10,7 @@ Require MSetProperties.
 Require Import OrderedType ZArith.
 Require Import hpattern vgtac.
 Require Import VocabA.
+Require Import Morphisms.
 
 Module FSetAVL'.
 
@@ -85,7 +86,6 @@ Qed.
 
 
 Local Open Scope bool.
-Require Import Morphisms.
 
 Definition cond_eq (f g : elt -> bool) : Prop :=
   compat_bool X.eq f /\ (X.eq ==> Logic.eq)%signature f g.

@@ -52,7 +52,7 @@ refine (match x, y with
             end
           | _, _ => right _
         end); (inversion 1; done).
-Qed.
+Defined.
 
 Definition eq' : t' -> t' -> Prop := eq.
 
@@ -70,7 +70,7 @@ refine (match x, y with
 - by subst.
 - by auto.
 - by auto.
-Qed.
+Defined.
 
 Lemma le'_refl : forall (x y : t') (Heq : eq' x y), le' x y.
 Proof.

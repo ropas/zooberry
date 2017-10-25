@@ -36,7 +36,7 @@ Module Unit <: KEY.
   Defined.
 
   Definition eq_dec : forall x y : t, {eq x y} + {~ eq x y}.
-  Proof. left; econs. Qed.
+  Proof. left; econs. Defined.
 
   Definition eqb x y := if eq_dec x y then true else false.
 

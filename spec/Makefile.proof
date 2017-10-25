@@ -1,27 +1,22 @@
 # Copyright (c) 2017-present,
 # Programming Research Laboratory (ROPAS), Seoul National University, Korea
 # This software is distributed under the term of the BSD-3 clause license.
-BASIC_SRC := $(wildcard ../Basic/*.v)
-INPUT_SRC := $(wildcard ../$(INPUT)/*.v)
-GEN_SRC := $(wildcard ../Gen/*.v)
-PROOF_SRC := $(wildcard ../Proof/*.v)
+BASIC_OBJ := $(wildcard ../Basic/*.vo)
+INPUT_OBJ := $(wildcard ../$(SPEC)Input/*.vo)
+GEN_OBJ := $(wildcard ../Gen/Vali.vo)
+PROOF_OBJ := $(wildcard ../Proof/*.vo)
 VS := $(wildcard *.v)
-DIR := $(notdir $(shell pwd))
-COQ_GEN := *.glob *.vo *.v.d
 
-.PHONY:	coq clean
+.PHONY:	all clean
 
-coq: Makefile.coq $(VS)
+all: Makefile.coq $(VS)
 	$(MAKE) -f Makefile.coq
 
-Makefile.coq: ../Makefile $(BASIC_SRC) $(GEN_SRC) $(INPUT_SRC) $(PROOF_SRC)
-ifdef INPUT
+Makefile.coq: ../Makefile $(BASIC_OBJ) $(INPUT_OBJ) $(GEN_OBJ) $(PROOF_OBJ)
 	rm -f $(COQ_GEN)
-	coq_makefile -R ../Basic Basic -R ../$(INPUT) $(INPUT) -R ../Gen Gen -R ../Proof Proof -R . $(DIR) $(VS) -o Makefile.coq
-else
-	$(error "The INPUT enrionment should be set to compile.")
-endif
+	coq_makefile INSTALLDEFAULTROOT = .. -R ../Basic Basic \
+	  -R ../$(SPEC)Input $(SPEC)Input -R ../Gen Gen -R ../Proof Proof \
+	  -R . $(SPEC)Proof $(VS) -o Makefile.coq
 
 clean:
 	rm -f $(COQ_GEN)
-	rm -f Makefile.coq

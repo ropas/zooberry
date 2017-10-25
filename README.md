@@ -20,7 +20,7 @@ How to make (example: the interval analyzer)
 1.  Extract an analysis specification written in Coq to OCaml.
 
         $ cd spec
-        $ make ItvInput_ext
+        $ make Itv_ext
 
     It extract OCaml files to the `analyzer/extract` directory.
 
@@ -28,16 +28,16 @@ How to make (example: the interval analyzer)
 
     *   proof checking of the specification
 
-            $ make ItvInputProof
+            $ make Itv_proof
 
     *   clean the Coq proof objects
 
-            $ make ItvInput_clean
+            $ make clean
 
 2.  Compile the extracted code to an excutable.
 
         $ cd ../analyzer
-        $ ./build ItvInput
+        $ ./build Itv
 
 3.  Run the analyzer.
 

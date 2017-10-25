@@ -1,32 +1,28 @@
 # Copyright (c) 2017-present,
 # Programming Research Laboratory (ROPAS), Seoul National University, Korea
 # This software is distributed under the term of the BSD-3 clause license.
-INPUT_SRC := $(wildcard $(INPUT)/*.v)
-VS := $(filter-out Extract.v, $(wildcard *.v))
-COQ_GEN := *.glob *.vo *.v.d
+BASIC_OBJ := $(wildcard ../Basic/*.vo)
+SPEC_OBJ := $(wildcard ../$(SPEC)Input/*.vo)
 
-.PHONY:	coq clean
+.PHONY: all ext clean
 
-coq: Makefile.coq $(VS)
+all: Makefile.coq Vali.v
 	$(MAKE) -f Makefile.coq
 
-Makefile.coq: Makefile $(INPUT_SRC)
-ifdef INPUT
-	rm -f $(COQ_GEN)
-	coq_makefile -R ../Basic Basic -R ../$(INPUT) $(INPUT) -R . Gen $(VS) -o Makefile.coq
-else
-	$(error "The INPUT enrionment should be set to compile.")
-endif
+$(SPEC).current:
+	rm -f *.current
+	touch $(SPEC).current
 
-ext: coq Extract.v
-ifdef INPUT
-	coqc -R ../Basic Basic -R ../$(INPUT) $(INPUT) -R . Gen Extract.v
+Makefile.coq: Makefile $(BASIC_OBJ) $(SPEC_OBJ) $(SPEC).current
+	rm -f $(COQ_GEN)
+	coq_makefile INSTALLDEFAULTROOT = .. -R ../Basic Basic \
+	  -R ../$(SPEC)Input $(SPEC)Input -R . Gen Vali.v -o Makefile.coq
+
+ext: all Extract.v
+	coqc -R ../Basic Basic -R ../$(SPEC)Input $(SPEC)Input -R . Gen \
+	  Extract.v
 	rm -f ../../analyzer/extract/*.ml*
 	mv *.ml* ../../analyzer/extract/
-else
-	$(error "The INPUT enrionment should be set to compile.")
-endif
 
 clean:
 	rm -f $(COQ_GEN)
-	rm -f Makefile.coq

@@ -88,7 +88,8 @@ Proof.
                end) Logic.eq_refl)
   ; subst; try econs; try inversion 1; try tauto.
   + apply physical_eq_prop in Hc; subst; by apply eq_refl.
-Qed.
+Defined.
+
 Definition eqb x y := if eq_dec x y then true else false.
 
 Definition is_entry_node (node : t) : bool :=

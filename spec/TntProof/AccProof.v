@@ -601,6 +601,23 @@ apply list_fold_mor2 with (u_eq:=Val.eq); [|by auto|by apply Val.eq_refl].
 intros ? ? ? ? ? ?; by apply Val.join_eq.
 Qed.
 
+Lemma val_equiv : Equivalence Val.eq.
+Proof.
+  constructor.
+  - unfold Reflexive; i; by apply Val.eq_refl.
+  - unfold Symmetric; i; by apply Val.eq_sym.
+  - unfold Transitive; i; eapply Val.eq_trans; by eauto.
+Qed.
+
+Lemma dst_equiv : Equivalence StringFun.dst_eq.
+Proof.
+  constructor.
+  - unfold Reflexive; i; by apply (DLat.zb_equiv_refl StringFun.dst_zb_eq).
+  - unfold Symmetric; i; by apply (DLat.zb_equiv_sym StringFun.dst_zb_eq).
+  - unfold Transitive; i; eapply (DLat.zb_equiv_trans StringFun.dst_zb_eq)
+    ; by eauto.
+Qed.
+
 Lemma get_dstsrc_list_mor :
   Proper
     (SetoidList.eqlistA Val.eq ==> Logic.eq
@@ -610,21 +627,6 @@ Lemma get_dstsrc_list_mor :
                                          (SetoidList.eqlistA Val.eq))
     StringFun.get_dstsrc_list.
 Proof.
-  Lemma val_equiv : Equivalence Val.eq.
-  Proof.
-    constructor.
-    - unfold Reflexive; i; by apply Val.eq_refl.
-    - unfold Symmetric; i; by apply Val.eq_sym.
-    - unfold Transitive; i; eapply Val.eq_trans; by eauto.
-  Qed.
-  Lemma dst_equiv : Equivalence StringFun.dst_eq.
-  Proof.
-    constructor.
-    - unfold Reflexive; i; by apply (DLat.zb_equiv_refl StringFun.dst_zb_eq).
-    - unfold Symmetric; i; by apply (DLat.zb_equiv_sym StringFun.dst_zb_eq).
-    - unfold Transitive; i; eapply (DLat.zb_equiv_trans StringFun.dst_zb_eq)
-      ; by eauto.
-  Qed.
 intros vs1 vs2 Hvs args' args Hargs; subst.
 generalize vs1 vs2 Hvs; clear vs1 vs2 Hvs.
 induction args.

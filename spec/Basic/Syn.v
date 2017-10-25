@@ -60,7 +60,7 @@ Inductive binop : Type :=
 | LOr.
 
 Definition binop_dec : forall (x y : binop), {x = y} + {~ x = y}.
-Proof. destruct x, y; try (left; reflexivity); right; inversion 1. Qed.
+Proof. destruct x, y; try (left; reflexivity); right; inversion 1. Defined.
 
 Inductive exp : Type :=
 | Const (c : constant) (pos : pos_t)
